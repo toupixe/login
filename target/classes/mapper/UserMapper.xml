@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyd.login.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.wyd.login.dto.UserDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="login_id" jdbcType="VARCHAR" property="loginId" />
+    <result column="passward" jdbcType="VARCHAR" property="passward" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="is_deleted" jdbcType="VARCHAR" property="isDeleted" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+  </resultMap>
+	<insert id="insertUser" parameterType="com.wyd.login.dto.UserDto">
+		insert into 
+			tb_user 
+			(login_id,passward,user_name,sex,age,create_at,create_by,update_at,update_by,is_deleted,phone_number,address,birthday)
+		VALUES(
+			#{userDto.loginId},
+			#{userDto.passward},
+			#{userDto.userName},
+			#{userDto.sex},
+			#{userDto.age},
+			#{userDto.createAt},
+			#{userDto.createBy},
+			#{userDto.updateAt},
+			#{userDto.updateBy},
+			#{userDto.isDeleted},
+			#{userDto.phoneNumber},
+			#{userDto.address},
+			#{userDto.birthday}
+			)
+	</insert>
+	
+	<select id="selectUser" parameterType="com.wyd.login.dto.UserDto" resultMap="BaseResultMap">
+		select 
+			*
+		from
+			tb_user
+		where
+			1=1
+			<if test="userDto.loginId != null">
+    			AND login_id = #{userDto.loginId}
+  			</if>
+  			<if test="userDto.phoneNumber != null">
+    			AND phone_number = #{userDto.phoneNumber}
+  			</if>
+  			AND
+  				is_deleted = 'f'
+	</select>
+ </mapper>

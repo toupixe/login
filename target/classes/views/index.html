@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<title>Cat-首页</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Custom Theme files -->
+
+<link href="css/style.css" th:href="@{/css/style.css}" type="text/css" rel="stylesheet" media="all">  
+ 
+<link href="css/font-awesome.css" th:href="@{/css/font-awesome.css}"  rel="stylesheet"> <!-- font-awesome icons -->
+<!-- //Custom Theme files --> 
+<!-- js -->
+<script src="js/jquery-2.2.3.min.js" th:src="@{/js/jquery-2.2.3.min.js}"></script> 
+<script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>  
+<link href="css/bootstrap.css" th:href="@{/css/bootstrap.css}" type="text/css" rel="stylesheet" media="all"> 
+<!-- //js -->
+<!-- web-fonts -->  
+<link th:href="@{http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700}" rel="stylesheet"> 
+<link th:href='@{http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic}' rel='stylesheet' type='text/css'>
+<!-- //web-fonts -->
+<style>
+
+	#register {
+		outline: none;
+    color: #fff;
+    padding: .8em 0;
+    width: 100%;
+    font-size: 1em; 
+    -webkit-appearance: none;
+    background: #00aec5;
+    border: solid 1px #00aec5;
+	-webkit-border-radius: 35px;
+	-moz-border-radius: 35px; 
+	-o-border-radius: 35px;
+	-ms-border-radius: 35px;  
+    border-radius: 35px;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    transition: 0.5s all;
+	}
+</style>
+</head>
+
+<body>
+	<!-- banner -->
+	<div class="agileits-banner">  
+		<!-- navigation -->
+		<div class="top-nav w3-agiletop">
+			<div class="container" th:fragment="one">
+				<div class="navbar-header w3llogo">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button> 
+					<h1><a href="/cat/index"><span  aria-hidden="true"></span> Cat</a></h1> 
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<div class="w3menu navbar-left">
+						<ul class="nav navbar">
+							<li><a href="/cat/index" class="active">首页</a></li>
+							<li><a href="/cat/life">记录生活</a></li> 
+							<li><a href="/cat/contact">联系我</a></li>
+						</ul>
+					</div>
+					<div class="w3ls-bnr-icons social-icon navbar-right">
+						<a href="#" class="social-button twitter"><i class="fa fa-twitter"></i></a>
+						<a href="#" class="social-button facebook"><i class="fa fa-facebook"></i></a> 
+						<a href="#" class="social-button google"><i class="fa fa-google-plus"></i></a> 
+						<a href="#" class="social-button dribbble"><i class="fa fa-dribbble"></i></a> 
+					</div>
+					<div class="clearfix"> </div>  
+				</div>
+			</div>	
+		</div>	
+		<!-- //navigation --> 
+		<div class="banner-w3text w3layouts">
+			<h2>Welcome To <span>Cat</span></h2> 
+			<div class="wthree-bnr-login">
+					<ul>   
+						<li><input type="text" id="name" name="name" placeholder="你的姓名" required=""></li>
+						<li><input type="text" id="phone" name="phone" placeholder="你的电话" required=""></li>
+						<li><input type="button" id="register" class="btn btn-primary" value="联系我" onclick="commit();"></li>
+					</ul>
+			</div>
+			<h6>快乐的源泉来自于生活</h6> 
+		</div>  
+	</div>
+	<!-- //banner --> 
+	<!-- banner-bottom -->
+	<div class="banner-bottom w3-agileits-bnr-btm">
+		<div class="col-sm-6 col-xs-6 bnr-btm-left">
+			<h5>左青龙</h5>
+			<p>一代战神一带魂</p>
+		</div>
+		<div class="col-sm-6 col-xs-6 bnr-btm-right">	
+			<h5>右白虎</h5>
+			<p>一带水比一带深</p>
+		</div>
+		<div class="clearfix"> </div>	
+	</div>
+	<!-- //banner-bottom -->
+	<!-- about -->
+	<div class="about">
+		<div class="container">
+			<h3 class="agileits-title">本站统计</h3>
+			<div class="about-agileinfo">
+				<div class="col-md-6 agileits_about_right">
+					<div class="w3ls_about_right">
+						<img th:src="@{/img/img2.jpg}" alt=" " class="img-responsive" />
+						<div class="w3ls_about_right_pos">
+							<img th:src="@{/img/img1.jpg}" alt=" " class="img-responsive" />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 agileits_about_left"> 
+					<p class="w3l_para"></p>
+					<div class="w3l_social_icons">
+						<div class="w3l_social_icon_grid">
+							<div class="w3l_social_icon_gridl w3_facebook">
+								<a href="#">
+									<i class="fa fa-cogs" aria-hidden="true"></i>
+								</a>
+							</div>
+							<div class="w3l_social_icon_gridr">
+								今日电脑端访问：<p class="counter">23,536</p>
+							</div>
+							<div class="clearfix"> </div>
+							<div class="w3l_social_icon_grid_pos">
+								<label>-</label>
+							</div>
+						</div>
+						<div class="w3l_social_icon_grid w3ls_social_icon_grid">
+							<div class="w3l_social_icon_gridl w3_dribbble">
+								<a href="#">
+									<i class="fa fa-group" aria-hidden="true"></i>
+								</a>
+							</div>
+							<div class="w3l_social_icon_gridr">
+								今日手机端访问<p class="counter">13,676</p>
+							</div>
+							<div class="clearfix"> </div>
+							<div class="w3l_social_icon_grid_pos">
+								<label>-</label>
+							</div>
+						</div>
+						<div class="w3l_social_icon_grid">
+							<div class="w3l_social_icon_gridl w3_instagram">
+								<a href="#">
+									<i class="fa fa-cubes" aria-hidden="true"></i>
+								</a>
+							</div>
+							<div class="w3l_social_icon_gridr">
+								本站总访问<p class="counter">45,342</p>
+							</div>
+							<div class="clearfix"> </div>
+							<div class="w3l_social_icon_grid_pos">
+								<label>-</label>
+							</div>
+						</div>
+					</div>
+				</div> 
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- //about -->
+	<!-- services -->
+	<div class="services">
+		<div class="container">
+			<h3 class="agileits-title">专业技能</h3> 
+			<div class="services-row-agileinfo">
+				<div class="col-sm-4 col-xs-6 services-w3grid">
+					<a href="#"><span class="glyphicon glyphicon-heart hi-icon" aria-hidden="true"></span></a>
+					<h5>JAVA</h5>
+					<p>Itaque earum rerum hic a sapiente delectus</p>
+				</div>
+				<div class="col-sm-4 col-xs-6 services-w3grid">
+					<span class="glyphicon glyphicon-list-alt hi-icon" aria-hidden="true"></span>
+					<h5>JS</h5>
+					<p>Itaque earum rerum hic a sapiente delectus</p>
+				</div>
+				<div class="col-sm-4 col-xs-6 services-w3grid">
+					<span class="glyphicon glyphicon-leaf hi-icon" aria-hidden="true"></span>
+					<h5>PYTHON</h5>
+					<p>Itaque earum rerum hic a sapiente delectus</p>
+				</div>
+				<div class="col-sm-4 col-xs-6 services-w3grid bottom-grids wow fadeInUp animated" data-wow-delay=".5s">
+					<span class="glyphicon glyphicon-globe hi-icon" aria-hidden="true"></span>
+					<h5>SQL</h5>
+					<p>Itaque earum rerum hic a sapiente delectus</p>
+				</div>
+				<div class="col-sm-4 col-xs-6 services-w3grid bottom-grids">
+					<span class="glyphicon glyphicon-cutlery hi-icon" aria-hidden="true"></span>
+					<h5>分布式</h5>
+					<p>Itaque earum rerum hic a sapiente delectus</p>
+				</div>
+				<div class="col-sm-4 col-xs-6 services-w3grid bottom-grids">
+					<span class="glyphicon glyphicon-th-large hi-icon" aria-hidden="true"></span>
+					<h5>微服务</h5>
+					<p>Itaque earum rerum hic a sapiente delectus</p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div><div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >企业网站模板</a></div>
+	<!-- //services -->
+	<!-- events -->
+	<div class="events">
+		<div class="container">
+			<h3 class="agileits-title">生活片段</h3> 
+			<div class="agile_banner_bottom_grids">
+				<div class="col-sm-6 col-xs-6 agile_events_grid">
+					<a href="/cat/single"><img th:src="@{/img/img1.jpg}" alt=" " class="img-responsive" /></a>
+					<div class="agile_events_grid_pos agile_events_grid_pos1">
+						<h5><span>01</span> 02 / 2017</h5>
+						<h4><a href="/cat/single">去乐山大佛玩</a></h4>
+						<p>没吃早饭，就去爬山，上山，下山，再上山，大佛旁边的小道非常的险峻，每一步都小心翼翼</p>
+					</div>
+					<div class="agileits_w3layouts_events_grid_social">
+						<div class="social-icon evnts-w3lsicons">
+							<a href="#" class="social-button twitter"><i class="fa fa-twitter"></i></a>
+							<a href="#" class="social-button facebook"><i class="fa fa-facebook"></i></a>  
+							<a href="#" class="social-button dribbble"><i class="fa fa-dribbble"></i></a> 
+						</div> 
+					</div>
+				</div>
+				<div class="col-sm-6 col-xs-6 agile_events_grid">
+					<img th:src="@{/img/img2.jpg}" alt=" " class="img-responsive" />
+					<div class="agile_events_grid_pos_sub agile_events_grid_pos1">
+						<h5 class="w3_agileits_event_head"><span>05</span> 02 / 2017</h5>
+						<h4><a href="single.html">consequat dictum sodales</a></h4>
+						<p>Nunc non maximus augue, sit amet dictum diam. Etiam ultrices hendrerit sapien, 
+							id volutpat tortor viverra et.</p>
+					</div>
+					<div class="agileits_w3layouts_events_grid_social">
+						<div class="social-icon evnts-w3lsicons">
+							<a href="#" class="social-button twitter"><i class="fa fa-twitter"></i></a>
+							<a href="#" class="social-button facebook"><i class="fa fa-facebook"></i></a>  
+							<a href="#" class="social-button dribbble"><i class="fa fa-dribbble"></i></a> 
+						</div> 
+					</div>
+				</div> 
+			</div>
+		</div>
+	</div>
+	<!-- //events -->
+	<!-- footer -->
+	<div class="footer">
+		<div class="container">
+			<div class="footer-row w3l-newsletter"> 
+				<div class="col-md-6 w3_agile_newsletter_left">
+					<h4>关于我们</h4>
+				</div>
+				<div class="col-md-6 w3_agile_newsletter_right">
+					<form action="#" method="post">
+						<input type="email" name="Email" placeholder="Email..." required="">
+						<input type="submit" value="Subscribe">
+					</form>
+				</div>
+				<div class="clearfix"> </div> 
+			</div> 
+			<div class="footer-bottom">
+				<div class="col-sm-4 col-xs-4 footer-grids">
+					<p>老天不会辜负努力付出的人</p>
+					<h6>consectetur<a href="#"> Christ Richard.</a> </h6>
+				</div>
+				<div class="col-sm-4 col-xs-4 footer-grids footer-mdl">
+					<div class="col-md-6 col-xs-6 grid-left">
+						<ul>
+							<li><a href="/cat/index"><i></i>首页</a></li>
+							<li><a href="/cat/life"><i></i>记录生活</a></li>
+							<li><a href="/cat/contact"><i></i>联系我</a></li>
+						</ul>	
+					</div>
+					<div class="col-md-6 col-xs-6 grid-left">
+						<ul>
+							<li><a href="/cat/index"><i></i>Index</a></li>
+							<li><a href="/cat/life"><i></i>Life</a></li> 
+							<li><a href="/cat/contact"><i></i>Contact</a></li>
+						</ul>	
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="col-sm-4 col-xs-4 footer-grids">
+					<ul>
+						<li class="phn"><i></i>18483658538</li>
+						<li>1019021863@qq.com</li>
+					</ul>
+					<!-- <p>Copyright &copy; 2017.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p> -->
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<!-- footer --> 
+	<!-- Stats -->
+	<script th:src="@{/js/waypoints.min.js}"></script> 
+	<script th:src="@{/js/counterup.min.js}"></script> 
+	<script>
+		jQuery(document).ready(function( $ ) {
+			$('.counter').counterUp({
+				delay: 10,
+				time: 2000
+			});
+		});
+	</script>
+	<!-- //Stats --> 
+	<!-- start-smooth-scrolling -->
+	<script type="text/javascript" th:src="@{/js/SmoothScroll.min.js}"></script> 
+	<script type="text/javascript" th:src="@{/js/move-top.js}"></script>
+	<script type="text/javascript" th:src="@{/js/easing.js}"></script>	
+	<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+			
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+	</script>
+	<!-- //end-smooth-scrolling -->	
+	<!-- smooth-scrolling-of-move-up -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
+			
+			$().UItoTop({ easingType: 'easeOutQuart' });
+			
+		});
+	</script>
+	<!-- //smooth-scrolling-of-move-up -->    
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <script type="text/javascript">	
+    
+    //简单注册
+    function commit(){
+    		var name = $("#name").val();
+    		var phone = $("#phone").val();
+    		if (name == null || name == "" || name == "undefined" || phone == null || phone == "" || phone == "undefined") {
+    			alert("请填写姓名和电话");
+    			return false;
+    		}
+    		$.ajax({
+    			type:"POST",
+    			url:"/index/sentContact",
+    			data:{"name":name,"phone":phone},
+    			dataType:"json",
+    			success:function(data){
+    				if (data.stauts == "success") {
+    					alert(data.data.msg)
+    				} else {
+    					alert(data.data.errorMsg)
+    				}
+    			}
+    		})
+    	}
+    </script>
+</body>
+</html>
