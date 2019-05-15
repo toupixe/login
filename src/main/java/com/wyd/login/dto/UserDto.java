@@ -1,8 +1,10 @@
 package com.wyd.login.dto;
 
+import java.io.Serializable;
+
 import com.wyd.login.model.User;
 
-public class UserDto extends User{
+public class UserDto extends User implements Serializable{
 	/**验证码*/
 	private String verification_code;
 

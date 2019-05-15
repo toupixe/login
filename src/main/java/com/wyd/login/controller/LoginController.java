@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSONObject;
 import com.wyd.login.dto.UserDto;
 import com.wyd.login.model.User;
 import com.wyd.login.service.UserService;
@@ -23,8 +23,8 @@ import com.wyd.login.webutils.error.erroenum.EmBusinessError;
 import com.wyd.login.webutils.exception.BusinessException;
 import com.wyd.login.webutils.result.CommonResponseType;
 import com.wyd.login.webutils.result.Result;
+import com.wyd.login.webutils.utils.RedisUtils;
 
-import redis.clients.jedis.Jedis;
 
 @Controller()
 @RequestMapping("/login")
@@ -33,6 +33,9 @@ public class LoginController extends BaseController{
 	
 	@Autowired
 	private HttpServletRequest httpServletRequest;
+	
+	@Autowired
+	private RedisUtils redisUtils;
 	
 	/**用户Service*/
 	@Autowired
@@ -113,11 +116,7 @@ public class LoginController extends BaseController{
 		}
 		
 		//将用户存入redis（实现session跨域）
-		Jedis jedis = new Jedis("192.168.0.106",6379);
-		System.out.println("连接成功");
-		//查看服务是否运行
-		System.out.println("服务正在运行: "+jedis.ping());
-		jedis.append("currentUser", JSONUtils.toJSONString(resultUser));
-		return CommonResponseType.create("登陆成功");
+		redisUtils.set("currentUser", JSONObject.toJSONString(resultUser));
+		return CommonResponseType.create(JSONObject.toJSONString(resultUser),Result.SUCCESS.getStauts());
 	}
 }
