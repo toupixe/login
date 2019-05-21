@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,9 @@ public class LoginController extends BaseController{
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	/**新用户注册*/
 	@RequestMapping("/regist")
 	@ResponseBody
@@ -55,7 +59,7 @@ public class LoginController extends BaseController{
 		} 
 		
 		//判断参数是否正确
-		
+
 		//将用户保存
 		UserDto userDto = new UserDto();
 		Date date = new Date();
@@ -69,7 +73,14 @@ public class LoginController extends BaseController{
 		//设置是否被删除
 		userDto.setIsDeleted("f");
 		//保存用户信息
-		userService.saveUser(userDto);
+		try {
+			userService.saveUser(userDto);
+		} catch (BusinessException e) {
+			Map<String, Object> map1 = new HashMap<>();
+			map.put("errorCode", e.getErrorCode());
+			map.put("errorMsg", e.getErrorMsg());
+			return CommonResponseType.create(map1, Result.FAIL.getStauts());
+		}
 		return CommonResponseType.create("注册成功");
 	}
 	
@@ -81,7 +92,20 @@ public class LoginController extends BaseController{
 		int randomInt = random.nextInt(99999);
 		randomInt += 10000;
 		String otp = String.valueOf(randomInt);
-		
+
+		//判断用户是否存在
+		try {
+			UserDto user = userService.getUser(new UserDto(phoneNumber));
+			if (user != null) {
+				throw new BusinessException(EmBusinessError.USER_IS_EXCIT,"用户已经存在");
+			}
+		} catch (BusinessException e) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("errorCode", e.getErrorCode());
+			map.put("errorMsg", e.getErrorMsg());
+			return CommonResponseType.create(map, Result.FAIL.getStauts());
+		}
+
 		httpServletRequest.getSession().setAttribute(phoneNumber, otp);
 		
 		System.out.println("手机号为"+phoneNumber + "的验证码为:" + otp);
@@ -116,7 +140,30 @@ public class LoginController extends BaseController{
 		}
 		
 		//将用户存入redis（实现session跨域）
-		redisUtils.set("currentUser", JSONObject.toJSONString(resultUser));
+		session.setAttribute("loginUser", JSONObject.toJSONString(resultUser));
 		return CommonResponseType.create(JSONObject.toJSONString(resultUser),Result.SUCCESS.getStauts());
+	}
+	
+	/**用户信息*/
+	@RequestMapping("/login_info")
+	@ResponseBody
+	public CommonResponseType loginInfo() {
+		String userInfo = redisUtils.get("loginUser");
+		if (userInfo == null || userInfo.equals("")) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("errorCode", EmBusinessError.USER_NOT_EXCIT.getErrorCode());
+			map.put("errorMsg", EmBusinessError.USER_NOT_EXCIT.getErrorMsg());
+			return CommonResponseType.create(map, Result.FAIL.getStauts());
+		} else {
+			return CommonResponseType.create(userInfo,Result.SUCCESS.getStauts());
+		}
+	}
+	
+	/**用户退出*/
+	@RequestMapping("/login_exit")
+	@ResponseBody
+	public CommonResponseType loginExit(User user) {
+		redisUtils.delete("loginUser");
+		return CommonResponseType.create("退出成功",Result.SUCCESS.getStauts());
 	}
 }

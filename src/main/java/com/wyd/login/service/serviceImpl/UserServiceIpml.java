@@ -16,7 +16,7 @@ public class UserServiceIpml implements UserService{
 	private UserMapper userMapper;
 	
 	@Override
-	public void saveUser(UserDto userDto) {
+	public void saveUser(UserDto userDto) throws BusinessException {
 		userMapper.insertUser(userDto);
 	}
 

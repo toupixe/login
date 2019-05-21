@@ -11,7 +11,7 @@ public interface UserService {
 	 * <p>Description: 保存一条用户信息</p>  
 	 * @param userDto
 	 */
-	public void saveUser(UserDto userDto);
+	public void saveUser(UserDto userDto)throws BusinessException;
 	
 	/**
 	 * 
