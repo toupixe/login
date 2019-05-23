@@ -3,6 +3,7 @@ package com.wyd.login.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wyd.login.dto.LoadingCountByIsComputor;
 import com.wyd.login.dto.UserDto;
 import com.wyd.login.model.User;
+import com.wyd.login.service.LoadingService;
 import com.wyd.login.service.UserService;
 import com.wyd.login.webutils.error.erroenum.EmBusinessError;
 import com.wyd.login.webutils.exception.BusinessException;
@@ -41,6 +44,9 @@ public class LoginController extends BaseController{
 	/**用户Service*/
 	@Autowired
 	private UserService userService;
+	
+	@Autowired 
+	private LoadingService loadingService;
 	
 	@Autowired
 	private HttpSession session;
@@ -77,8 +83,8 @@ public class LoginController extends BaseController{
 			userService.saveUser(userDto);
 		} catch (BusinessException e) {
 			Map<String, Object> map1 = new HashMap<>();
-			map.put("errorCode", e.getErrorCode());
-			map.put("errorMsg", e.getErrorMsg());
+			map1.put("errorCode", e.getErrorCode());
+			map1.put("errorMsg", e.getErrorMsg());
 			return CommonResponseType.create(map1, Result.FAIL.getStauts());
 		}
 		return CommonResponseType.create("注册成功");
@@ -148,7 +154,7 @@ public class LoginController extends BaseController{
 	@RequestMapping("/login_info")
 	@ResponseBody
 	public CommonResponseType loginInfo() {
-		String userInfo = redisUtils.get("loginUser");
+		String userInfo = (String) session.getAttribute("loginUser");
 		if (userInfo == null || userInfo.equals("")) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("errorCode", EmBusinessError.USER_NOT_EXCIT.getErrorCode());
@@ -163,7 +169,22 @@ public class LoginController extends BaseController{
 	@RequestMapping("/login_exit")
 	@ResponseBody
 	public CommonResponseType loginExit(User user) {
-		redisUtils.delete("loginUser");
+		session.setAttribute("loginUser", null);
 		return CommonResponseType.create("退出成功",Result.SUCCESS.getStauts());
+	}
+	
+	/**获取本站访问数*/
+	@RequestMapping("/loadingCount")
+	@ResponseBody
+	public CommonResponseType loadingCount() {
+		List<LoadingCountByIsComputor> loadingCountLst = null;
+		try {
+			loadingCountLst = loadingService.getLoadingCount();
+		} catch (BusinessException e) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("errorCode", e.getErrorCode());
+			map.put("errorMsg", e.getErrorMsg());
+		}
+		return CommonResponseType.create(loadingCountLst,Result.SUCCESS.getStauts());
 	}
 }

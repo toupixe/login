@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyd.login.dao.LoadingMapper">
+  <resultMap id="BaseResultMap" type="com.wyd.login.dto.LoadingDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="device" jdbcType="VARCHAR" property="device" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="is_computor" jdbcType="VARCHAR" property="isComputor" /> 
+  </resultMap>
+  
+  <resultMap id="LoadingCountMap" type="com.wyd.login.dto.LoadingCountByIsComputor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="count" jdbcType="VARCHAR" property="count" />
+    <result column="is_computor" jdbcType="VARCHAR" property="isComputor" /> 
+  </resultMap>
+  
+	<insert id="insertLoading" parameterType="com.wyd.login.dto.LoadingDto">
+		insert into 
+			tb_loading 
+			(device,time,url,is_computor)
+		VALUES(
+			#{loadingDto.device},
+			#{loadingDto.time},
+			#{loadingDto.url},
+			#{loadingDto.isComputor}
+			)
+	</insert>
+	<select id="getloadingCount" resultMap="LoadingCountMap">
+		select
+			is_computor,count(is_computor) as count
+		from
+			tb_loading
+		group by is_computor
+	</select>
+ </mapper>
